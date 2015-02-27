@@ -64,7 +64,6 @@ $RECYCLE.BIN/
 *
 
 # Except for the themes directories:
-
 !/*
 !/wp-content/
 !/wp-content/themes/
