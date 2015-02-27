@@ -58,3 +58,19 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# exclude everything except directory wp-content/bar
+# Ignore everything:
+*
+
+# Except for the themes directories:
+
+!/*
+!/wp-content/
+!/wp-content/themes/
+!/wp-content/themes/richco-sass/
+!/wp-content/themes/richco-sass/*
+!/wp-content/themes/richco-sass/*/*
+!/wp-content/themes/richco-sass/*/*/*
+!/wp-content/themes/richco-sass/*/*/*/*
+!/wp-content/themes/richco-sass/*/*/*/*/*
