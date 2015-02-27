@@ -49,16 +49,14 @@
                 <div class="thumb">
 
                     <?php if( have_rows('product_images') ): ?>
-                        <div id="product-image-slider-pager" class="bx-pager">
-
-                            <?php 
-                            $itr=0;
-                            while( have_rows('product_images') ): the_row(); ?>
-
-                            <a data-slide-index="<?php echo $itr; ?>" href="">     
-
-                                <?php 
-                                $image = get_sub_field('product_image');
+                        <div id="product-image-slider-pager" class="flexslider">
+                            <ul class="slides">
+                                <?php
+                                $itr=0;
+                                while( have_rows('product_images') ): the_row(); ?>
+                                <li>
+                                    <?php 
+                                    $image = get_sub_field('product_image');
                                     $size = 'product-image'; // (thumbnail, medium, large, full or custom size)
 
                                     if( $image ) {
@@ -66,10 +64,9 @@
                                     }
                                     $itr++;
                                     ?>
-                                </a>
-
-                            <?php endwhile; ?>
-
+                                </li>
+                                <?php endwhile; ?>
+                            </ul>
                         </div>                            
                     <?php endif; ?>
 
@@ -78,8 +75,8 @@
             <div class="col-xs-12 col-sm-9 text-center">
 
                 <?php if( have_rows('product_images') ): ?>
-
-                    <ul class="product-image-slider">
+                    <div id="product-image-slider" class="flexslider" >
+                    <ul class="slides">
 
                         <?php 
 
@@ -110,7 +107,7 @@
                             <?php endwhile; ?>
 
                         </ul>
-
+                        </div>
                     <?php endif; ?>
 
                 </div>
@@ -261,6 +258,7 @@
 
         $('#pro-tab a:first').tab('show');
 
+        /*
         $('.product-image-slider').bxSlider({
 
             pagerCustom: '#product-image-slider-pager',
@@ -269,7 +267,39 @@
             controls:false
 
         });
+        */
+       
+         // The slider being synced must be initialized first
+        $('#product-image-slider-pager').flexslider({
+            direction: "vertical", 
+            animation: "slide",
+            controlNav: false,
+            animationLoop: false,
+            slideshow: false,
+            itemWidth: 134,
+            asNavFor: '#product-image-slider'
+        });
 
-    });
+        $('#product-image-slider').flexslider({
+            animation: "fade",
+            controlNav: false,
+            animationLoop: false,
+            slideshow: false,
+            directionNav: false,
+            sync: "#product-image-slider-pager"
+        });
+
+});
 
 </script>
+<style>
+    .flexslider{ border: none; background-color: transparent;box-shadow: none; margin: 0;}
+    #product-image-slider-pager {margin-top:20px; }
+    #product-image-slider-pager .flex-viewport { height: 422px !important;}
+    #product-image-slider-pager .flex-direction-nav a{opacity: 1 !important; top: auto; width: 32px; height: 32px;}
+    #product-image-slider-pager .flex-direction-nav a.flex-prev{ left:50px; right: 0; top: -8px; }
+    #product-image-slider-pager .flex-direction-nav a.flex-prev:before{ width: 32px; height: 32px; content: url(<?php echo get_stylesheet_directory_uri(); ?>/assets/img/arrow-up.png); }
+    #product-image-slider-pager .flex-direction-nav a.flex-next{ left:50px; right: 0; bottom: -25px; }
+    #product-image-slider-pager .flex-direction-nav a.flex-next:before{ width: 32px; height: 32px; content: url(<?php echo get_stylesheet_directory_uri(); ?>/assets/img/arrow-down.png); }
+    #product-image-slider-pager > .flex-viewport > .slides{width: 100% !important;}
+</style>
